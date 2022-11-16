@@ -1,0 +1,54 @@
+# Project 2
+
+*By Paul and Robert*
+
+```{r}
+library(tidyr)
+library(openxlsx)
+library(ggplot2)
+
+game_logs_shortest_csv <- read.xlsx("game_logs_shortest.csv.xlsx")
+var1 <- game_logs_shortest_csv[1:2414,]
+
+```
+
+```{r}
+pitcher.stat <- var1[,43:44]
+
+pitcher.starts <-  function(x){
+  sum(pitcher.stat[,1]==x) + sum(pitcher.stat[,2]==x)
+}
+
+
+plot.data <- data.frame(rep(NA,3),rep(NA,3))
+
+name.fun <- function(k){
+  for(x in 1:length(k)){
+    plot.data[x,1] <<- k[x]
+    plot.data[x,2] <<- pitcher.starts(k[x])
+    colnames(plot.data) <<- c("pitcher", "starts")
+  }
+}
+
+pitcher.plot <- function(m){ ggplot(plot.data)+
+  geom_bar(aes(x=pitcher,y=starts,fill=pitcher),stat="identity")+
+  labs(x="Pitcher",y="Number of Starts")+
+  ggtitle("Pitcher vs Number of Starts in 2000")+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust=0.5), legend.position = "none")
+}
+
+```
+
+```{r}
+
+name.fun(c("Chan Ho Park","Tim Hudson","Russ Ortiz","Cal Eldred"))
+pitcher.plot()
+
+```
+
+```{r}
+name.fun(c("Rick Reed","Roger Clemens","Bartolo Colon","Greg Maddux","Pedro Martinez"))
+pitcher.plot()
+
+```
