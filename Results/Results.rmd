@@ -1,0 +1,12 @@
+```{r}
+
+name.fun(c("Chan Ho Park","Tim Hudson","Russ Ortiz","Cal Eldred"))
+pitcher.plot()
+
+```
+
+```{r}
+name.fun(c("Rick Reed","Roger Clemens","Bartolo Colon","Greg Maddux","Pedro Martinez"))
+pitcher.plot()
+
+```
